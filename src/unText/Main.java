@@ -1,6 +1,6 @@
 package unText;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,9 +21,31 @@ public class Main {
             wordsHashMap.put(i, (j == null) ? 1 : j + 1);
         }
 
-        for (HashMap.Entry<String, Integer> val : wordsHashMap.entrySet()) {
-            System.out.println(val.getKey() + ": " + val.getValue());
-        }
+        List<Map.Entry<String, Integer> > list = 
+               new LinkedList<Map.Entry<String, Integer> >(wordsHashMap.entrySet());
 
+               Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() { 
+                public int compare(Map.Entry<String, Integer> o1,  
+                                   Map.Entry<String, Integer> o2) 
+                { 
+                    return (o2.getValue()).compareTo(o1.getValue()); 
+                } 
+            }); 
+
+            HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>(); 
+            for (Map.Entry<String, Integer> aa : list) { 
+                temp.put(aa.getKey(), aa.getValue()); 
+            } 
+        
+        ArrayList<String> newArr = new ArrayList<String>();
+
+        for (HashMap.Entry<String, Integer> val : temp.entrySet()) {
+            if (val.getKey().trim().length() > 0) {
+            newArr.add(val.getKey() + ": " + val.getValue());
+        }}
+
+        for (int i = 0; i < 50; i++) {
+            System.out.println(newArr.get(i));
+        }
     }
 }
